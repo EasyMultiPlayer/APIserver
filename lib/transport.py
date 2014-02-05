@@ -133,6 +133,9 @@ class Transport():
             thread = threading.Thread(target=self.pull_processor, args=(data,))
             thread.start()
 
+            # to decrease CPU usage
+            time.sleep(0.001)
+
     # TODO make this multi threaded
     def publish(self):
         context = zmq.Context()
@@ -147,3 +150,6 @@ class Transport():
             for session_key in data_queue:
                 socket.send(str(session_key + " " + data_queue[session_key]))
                 del (self.data_pub[session_key])
+
+            # to decrease CPU usage
+            time.sleep(0.001)
